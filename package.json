@@ -1,0 +1,16 @@
+{
+  "name": "southern-utah-code-camp-slider",
+  "version": "1.0.0",
+  "description": "A Pen created on CodePen.io. Original URL: [https://codepen.io/brentvdalling/pen/zYeErdP](https://codepen.io/brentvdalling/pen/zYeErdP).",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "http-server"
+  },
+  "author": "Brent Dalling",
+  "license": "ISC",
+  "dependencies": {
+    "youtube-player": "^5.6.0"
+  }
+}
+

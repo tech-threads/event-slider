@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Southern Utah Code Camp Slider</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div class="wrapper">
+    <div class="clock">
+      <div class="hour">08</div>:<div class="minute">00</div>&nbsp;<div class="ampm">AM</div>
+    </div>
+    <div class="wifi">
+      WiFi: &nbsp;<span class="network-name">CodeCamp2023</span><br>
+      Pass: &nbsp;<span class="network-password">Password</span>
+    </div>
+    <div class="qr">
+      <img src="frame.png" alt="">
+    </div>
+    <div class="background">
+      <div class="video-player" id="video-player-music">
+        <div id="videomusic"></div>
+      </div>
+      <div class="video-player" id="video-player">
+        <div id="video"></div>
+      </div>
+    </div>
+    <div class="middleground" id="scroller">
+      <div class="block">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="sponsor">
+          <div class="sign">
+            <div class="content"
+              style="background-image: url('https://southernutahcodecamp.com/wp-content/uploads/2013/11/vasion_logo.png')">
+            </div>
+          </div>
+          <div class="stem"></div>
+          <div class="base"></div>
+        </div>
+      </div>
+    </div>
+    <div class="foreground" style="position: relative;">
+      <div class="car">
+        <img src="ezgif.com-gif-maker.gif" alt="" style="max-height: 70px; aspect-ratio: 16/9; position: absolute; top: -65px;">
+      </div>
+      <div class="code-camp" style="width: 20%; padding-top: .5rem; padding-left: .5rem">
+        <img src="https://southernutahcodecamp.com/wp-content/uploads/2018/09/codecamp_white.svg" alt="">
+      </div>
+      <div style="width: 40%;">
+        <h2 class="countdown" id="countdown-daycamp">
+          Daycamp&nbsp; -&nbsp; <div class="hour"></div>H&nbsp; <div class="minute"></div>M&nbsp;<div class="second"></div>S&nbsp; Remaining
+        </h2>
+        <h2  class="countdown" id="countdown-classic" >
+          Classic&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;<div class="hour"></div>H&nbsp; <div class="minute"></div>M&nbsp; <div class="second"></div>S&nbsp; Remaining
+        </h2>
+      </div>
+      <div style="width: 40%;">
+        <h2 id="text-announcement" style="color: white; padding: 0 1rem;">
+        </h2>
+      </div>
+    </div>
+  </div>
+  <!-- partial -->
+  <script type="module" src="./script.js"></script>
+  <script type="module" defer>
+    function start () {
+      alert('start')
+      window.start()
+    }
+
+    window.onload = function () {
+      window.addEventListener('click', start)
+    }
+  </script>
+</body>
+
+</html>
