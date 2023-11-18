@@ -4,7 +4,7 @@ import Sponsors from "./sponsors.js";
 
 let activeVideo = null;
 
-const rampVolume = (targetPlayer, volume, direction, callback = () => {}) => {
+const rampVolume = (targetPlayer, volume, direction, callback = () => { }) => {
   let interval = setInterval(async () => {
     let currentVolume = await targetPlayer.getVolume();
     if (currentVolume === volume) {
@@ -113,6 +113,10 @@ const start = async function () {
       config["event-end-times"][0]["cc-classic"],
       "countdown-classic"
     );
+    startCountDown(
+      config["event-end-times"][0]["cc-classic"],
+      "countdown-classic-background"
+    );
   } catch (e) {
     console.error(e);
   }
@@ -163,13 +167,47 @@ const start = async function () {
       config = await getConfig();
     }, 10000);
 
+    const wrapper = document.querySelector(".wrapper");
+    let wrapperStyle = wrapper.getAttribute("style");
+
+    if (wrapperStyle == null || wrapperStyle.opacity == null || wrapperStyle.opacity == undefined) {
+      wrapper.setAttribute("style", "opacity: 1;");
+    }
+
+    var fadeToWhite = (callback = () => { }) => {
+      var internalLoop = setInterval(() => {
+        wrapper.style.opacity -= 0.01;
+        if (wrapper.style.opacity <= 0) {
+          clearInterval(internalLoop)
+          callback()
+        }
+      }, 50);
+    }
+
+    var fadeFromWhite = () => {
+      var internalLoop = setInterval(() => {
+        wrapper.style.opacity = parseFloat(wrapper.style.opacity) + 0.01;
+        if (wrapper.style.opacity >= 1) {
+          clearInterval(internalLoop)
+        }
+      }, 50);
+    }
+
+    var fadeToWhiteLoop = setInterval(async () => {
+      fadeToWhite(() => {
+        const background = document.querySelector(".countdown-background");
+        background.classList.add("open");
+        setTimeout(() => { background.classList.remove('open'); fadeFromWhite() }, 10000)
+      })
+    }, 1000000);
+
+    var overrideIsSet = false;
+
     var configLoop = setInterval(async () => {
       const clock = document.querySelector(".clock");
-
       const hour = clock.querySelector(".hour");
       const minute = clock.querySelector(".minute");
       const ampm = clock.querySelector(".ampm");
-
       const now = moment();
 
       hour.innerHTML = now.format("hh");
@@ -183,6 +221,50 @@ const start = async function () {
         networkName.innerHTML = config["wifi-information"]["network-name"];
         networkPass.innerHTML = config["wifi-information"]["network-password"];
       }
+
+      if (config['notice-override'] && config['notice-override']['enabled']) {
+        switch (config["notice-override"]["type"]) {
+          case "video":
+            if (
+              activeVideo !==
+              config["notice-override"]["src"]
+            ) {
+              const videoPlayer = document.getElementById('video-player')
+
+              rampVolume(musicPlayer, 0, "down", () => {
+                videoPlayer.classList.add('open')
+                player.loadVideoByUrl(config["notice-override"]["src"])
+                rampVolume(player, 100, "up")
+              })
+
+              activeVideo = config["notice-override"]["src"]
+              overrideIsSet = true
+            }
+            break;
+
+          case "text":
+            let text = document.getElementById("text-announcement");
+            text.innerHTML = config["notice-override"]["src"];
+            break;
+        }
+        return;
+      } else {
+        if (overrideIsSet) {
+          switch (config["notice-override"]["type"]) {
+            case "video":
+              rampVolume(player, 0, "down", () => {
+                videoPlayer.classList.remove('open')
+                rampVolume(musicPlayer, 20, "up")
+              })
+              break;
+            case "text":
+              let text = document.getElementById("text-announcement");
+              text.innerHTML = "";
+              break;
+          }
+        }
+      }
+
       if (config.announcements) {
         config.announcements.forEach((announcement) => {
           let showAt = moment(announcement["show-at"], "YYYY-MM-DD hh:mm:ss");

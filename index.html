@@ -8,14 +8,22 @@
 </head>
 
 <body>
+  <div class="countdown-background">
+    <h2  class="countdown" style="color: black; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;" id="countdown-classic-background" >
+      <div style="width: 100%; text-align: center;">Time Remaining:</div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+        <div class="hour"></div>H&nbsp; <div class="minute"></div>M&nbsp; <div class="second"></div>S&nbsp;
+      </div>
+    </h2>
+  </div>
   <!-- partial:index.partial.html -->
-  <div class="wrapper">
+  <div class="wrapper" style="opacity: 1">
     <div class="clock">
       <div class="hour">08</div>:<div class="minute">00</div>&nbsp;<div class="ampm">AM</div>
     </div>
     <div class="wifi">
-      WiFi: &nbsp;<span class="network-name">CodeCamp2023</span><br>
-      Pass: &nbsp;<span class="network-password">Password</span>
+      WiFi: &nbsp;<span class="network-name"></span><br>
+      Pass: &nbsp;<span class="network-password"></span>
     </div>
     <div class="qr">
       <img src="frame.png" alt="">

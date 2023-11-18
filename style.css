@@ -4,7 +4,7 @@
   box-sizing: border-box;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  font-family: sans-serif;
+  font-family: sans-serif !important;
 }
 
 .countdown {
@@ -14,8 +14,23 @@
   color: white;
 }
 
-* {
-  font-family: 'Fira Code', monospace;
+.countdown-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  opacity: 0; /* Set initial opacity to 0 */
+  transition: opacity 2s ease; /* Apply transition for the opacity property */
+}
+
+.countdown-background.open {
+  display: flex;
+  opacity: 1; /* Set opacity to 1 when the element has the 'open' class */
 }
 
 body {
@@ -26,7 +41,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to top, #12083d 0%, #e32b7c 150%);
+  background: transparent;
 }
 
 .video-player {
@@ -164,8 +179,9 @@ body {
 
 .sponsor .sign .content {
   object-fit: cover;
-  max-height: 100%;
-  aspect-ratio: 1/1!important;
+  aspect-ratio: 16/10 !important;
+  max-width: 100%;
+  width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
