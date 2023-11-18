@@ -303,8 +303,8 @@ body {
 } */
 
 .block {
-  display: flex;
+  /* display: flex;
   position: absol;
-  z-index: 5;
+  z-index: 5; */
   translate: scaleX(1.2);
 }

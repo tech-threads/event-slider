@@ -331,7 +331,7 @@ const start = async function () {
           scroller.innerHTML += scroller.children;
         }
       });
-    }, 13);
+    }, 5);
   }
 };
 
