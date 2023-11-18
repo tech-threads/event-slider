@@ -35,7 +35,7 @@ const startCountDown = (eventEndDateTime, eventName) => {
     let minutes = duration.minutes().toString().padStart(2, "0");
     let seconds = duration.seconds().toString().padStart(2, "0");
 
-    hour.innerHTML = hours.slice(0, 2);
+    hour.innerHTML = hours.slice(0, 2).replace(".", "");
     minute.innerHTML = minutes;
     second.innerHTML = seconds;
   }, 1000);
