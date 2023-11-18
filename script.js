@@ -125,12 +125,7 @@ const start = async function () {
 
   if (scroller) {
     var block = scroller.querySelector(".block");
-    // scroller.querySelectorAll(".box").forEach((block) => {
-    //   block.setAttribute(
-    //     "style",
-    //     "height: " + getRandomArbitrary(30, 80) + "%;"
-    //   );
-    // });
+
     if (block) {
       var sponsorIndex = 0;
 
@@ -162,10 +157,6 @@ const start = async function () {
         scroller.appendChild(newBlock);
       }
     }
-
-    var configUpdateLoop = setInterval(async () => {
-      config = await getConfig();
-    }, 10000);
 
     const wrapper = document.querySelector(".wrapper");
     let wrapperStyle = wrapper.getAttribute("style");
@@ -204,6 +195,8 @@ const start = async function () {
     var overrideIsSet = false;
 
     var configLoop = setInterval(async () => {
+      config = await getConfig();
+
       const clock = document.querySelector(".clock");
       const hour = clock.querySelector(".hour");
       const minute = clock.querySelector(".minute");
@@ -253,6 +246,7 @@ const start = async function () {
           switch (config["notice-override"]["type"]) {
             case "video":
               rampVolume(player, 0, "down", () => {
+                const videoPlayer = document.getElementById('video-player')
                 videoPlayer.classList.remove('open')
                 rampVolume(musicPlayer, 20, "up")
               })
@@ -282,8 +276,9 @@ const start = async function () {
               case "video":
                 if (activeVideo !== announcement["src"]) {
                   const videoPlayer = document.getElementById("video-player");
-
+                  // alert("showing video");
                   rampVolume(musicPlayer, 0, "down", () => {
+                    console.log("ramping up");
                     videoPlayer.classList.add("open");
                     player.loadVideoByUrl(announcement["src"]);
                     rampVolume(player, 100, "up");
