@@ -198,6 +198,7 @@ body {
 }
 
 .foreground > div {
+  flex: 1;
   border: 2px solid cyan;
   height: 100%;
   display: flex;
