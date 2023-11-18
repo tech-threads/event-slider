@@ -50,7 +50,7 @@ body {
 
 .video-player.open {
   height: 1080px;
-  width: 1440px;
+  width: 1920px;
   position: fixed;
   top: 0 !important;
   left: 0 !important;
