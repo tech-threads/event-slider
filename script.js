@@ -1,5 +1,6 @@
 import moment from "https://esm.sh/moment";
 import YouTubePlayer from "https://esm.sh/youtube-player";
+import Sponsors from "./sponsors.js";
 
 let activeVideo = null;
 
@@ -40,49 +41,9 @@ const startCountDown = (eventEndDateTime, eventName) => {
   }, 1000);
 }
 
-const srcSponsors = [
-  {
-    name: "Vasion",
-    logo:
-      "https://southernutahcodecamp.com/wp-content/uploads/2013/11/vasion_logo.png",
-    level: "platinum"
-  },
-  {
-    name: "Zonos",
-    logo:
-      "https://southernutahcodecamp.com/wp-content/uploads/2015/11/zonos-300x300-1.png",
-    level: "platinum"
-  },
-  {
-    name: "St. George Academy",
-    logo:
-      "https://southernutahcodecamp.com/wp-content/uploads/2022/11/sga-300x300-1.png",
-    level: "platinum"
-  },
-  {
-    name: "St. George Chamber of Commerce",
-    logo:
-      "https://southernutahcodecamp.com/wp-content/uploads/2020/11/stg-chamber-300x300-1.jpg",
-    level: "platinum"
-  },
-  {
-    name: "Rural Online Initiative",
-    logo:
-      "https://southernutahcodecamp.com/wp-content/uploads/2021/11/usu_roi_logo.png",
-    level: "platinum"
-  },
-  {
-    name: "InfoWest",
-    logo:
-      "https://southernutahcodecamp.com/wp-content/uploads/2018/09/infowest.png",
-    level: "platinum"
-  }
-];
+const srcSponsors = [...Sponsors];
 const sponsorList = [
-  ...srcSponsors,
-  {
-    logo: `./frame.png`
-  }
+  ...srcSponsors
 ];
 const defaultIframe =
   "https://www.youtube.com/embed/B-0wgmKDxho?si=QN79JaPR_YMoIBUr";
@@ -157,12 +118,12 @@ const start = async function () {
 
   if (scroller) {
     var block = scroller.querySelector(".block");
-    scroller.querySelectorAll(".box").forEach((block) => {
-      block.setAttribute(
-        "style",
-        "height: " + getRandomArbitrary(30, 80) + "%;"
-      );
-    });
+    // scroller.querySelectorAll(".box").forEach((block) => {
+    //   block.setAttribute(
+    //     "style",
+    //     "height: " + getRandomArbitrary(30, 80) + "%;"
+    //   );
+    // });
     if (block) {
       var sponsorIndex = 0;
 
@@ -178,13 +139,14 @@ const start = async function () {
         if (!sponsorList[sponsorIndex]) continue;
 
         var sponsor = sponsorList[sponsorIndex];
-
-        newBlock
-          .querySelector(".content")
+        var content = newBlock.querySelector(".content")
+        content
           .setAttribute(
             "style",
             "background-image: url('" + sponsor.logo + "');"
           );
+
+        newBlock.querySelector(".sponsor").classList.add(sponsor.type)
 
         if (sponsorIndex >= sponsorList.length - 1) {
           sponsorIndex = 0;

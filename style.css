@@ -132,26 +132,22 @@ body {
   border-radius: 1rem;
 }
 
-.background {
-  width: 100%;
-  height: 30%;
-  display: flex;
-  z-index: 0;
-  overflow-x: scroll;
-}
-
 .sponsor {
-  min-width: calc((100% / 9) * 1.5);
+  min-width: calc((100% / 9) * 1.75);
   aspect-ratio: 16/9!important;
   height: 40%;
   z-index: 700;
   display: flex;
-  flex-direction: column;
-  margin-left: -8.5rem;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: -4rem;
 }
 
 .sponsor .sign {
   background: white;
+  width: 100%;
   height: 60%;
   aspect-ratio: 16/9 !important;
   border: 3px solid #fb9166;
@@ -173,11 +169,12 @@ body {
 .sponsor .stem {
   background: grey;
   height: 40%;
-  width: 5%;
+  width: 25px;
   border: 2px solid black;
   margin: 0 auto;
   border-top: 0px;
   border-bottom: 0px;
+  border-radius: 0px !important;
 }
 
 .foreground {
@@ -195,8 +192,8 @@ body {
 .middleground {
   z-index: 500;
   width: 100%;
-  height: 50vh;
-  max-height: 50%;
+  height: 80vh;
+  max-height: 80%;
   min-height: 50%;
   display: flex;
   overflow-x: scroll;
@@ -222,10 +219,27 @@ body {
 }
 
 .middleground > div > div.box {
-  min-width: calc(100% / 15);
-  background: #1a083f;
-  border: 4px solid #e32b7c;
+  min-width: 100%;
+  background: transparent;
+  border: 0;
   margin-left: -4px;
   height: 50%;
-  box-shadow: rgba(255, 255, 255, 0.1) 0px 10px 15px -3px, rgba(255, 255, 255, 0.05) 0px 4px 6px -2px;
+  border-radius: 0;
+}
+
+.silver {
+  transform: scale(1.1);
+}
+
+.bronze {
+  transform: scale(1);
+}
+
+.gold {
+  transform: scale(1.5);
+}
+
+.platinum {
+  transform: scale(2);
+  z-index: 10000;
 }
