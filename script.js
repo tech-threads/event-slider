@@ -98,10 +98,10 @@ const start = async function () {
 
   // musicPlayer.loadVideoByUrl(defaultIframe)
   // activeVideo = defaultIframe
-  // musicPlayer.unMute();
+  musicPlayer.unMute();
   player.unMute();
-  // musicPlayer.setVolume(20);
-  // rampVolume(musicPlayer, 20, "up");
+  musicPlayer.setVolume(20);
+  rampVolume(musicPlayer, 20, "up");
 
   try {
     config = await getConfig();
