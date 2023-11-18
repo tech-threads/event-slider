@@ -327,11 +327,16 @@ const start = async function () {
 
         // reset when we reach the end of the scroller
         if (scroller.scrollLeft >= scroller.scrollWidth - 1920) {
-          scroller.scrollLeft -= scroller.scrollWidth / 2;
-          scroller.innerHTML += scroller.children;
+          fadeToWhite(() => {
+            const background = document.querySelector(".countdown-background");
+            background.classList.add("open");
+            scroller.scrollLeft -= scroller.scrollWidth / 2;
+            scroller.innerHTML += scroller.children;
+            setTimeout(() => { background.classList.remove('open'); fadeFromWhite() }, 10000)
+          })
         }
       });
-    }, 5);
+    }, 7);
   }
 };
 
