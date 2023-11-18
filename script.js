@@ -337,7 +337,7 @@ const start = async function () {
           })
         }
       });
-    }, 7);
+    }, 15);
   }
 };
 
