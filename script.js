@@ -194,8 +194,9 @@ const start = async function () {
 
     var overrideIsSet = false;
 
+    var getConfigLoop = setInterval(async () => {config = await getConfig(); }, 60000);
     var configLoop = setInterval(async () => {
-      config = await getConfig();
+      
 
       const clock = document.querySelector(".clock");
       const hour = clock.querySelector(".hour");
