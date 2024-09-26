@@ -1,0 +1,33 @@
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--app-height) * 0.1);
+
+  color: white;
+  font-weight: 600;
+  display: flex;
+  padding: 25px;
+
+  gap: 20px;
+}
+
+.top-bar > div {
+  width: 33.33%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.top-bar > div:nth-of-type(2) {
+  justify-content: center;
+}
+
+.top-bar > div:nth-of-type(3) {
+  justify-content: flex-end;
+}
+
+img {
+  height: 100%;
+}

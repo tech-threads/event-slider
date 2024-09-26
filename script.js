@@ -4,7 +4,7 @@ import Sponsors from "./sponsors.js";
 
 let activeVideo = null;
 
-const rampVolume = (targetPlayer, volume, direction, callback = () => { }) => {
+const rampVolume = (targetPlayer, volume, direction, callback = () => {}) => {
   let interval = setInterval(async () => {
     let currentVolume = await targetPlayer.getVolume();
     if (currentVolume === volume) {
@@ -44,7 +44,7 @@ const startCountDown = (eventEndDateTime, eventName) => {
 const srcSponsors = [...Sponsors];
 const sponsorList = [...srcSponsors];
 const defaultIframe =
-  "https://www.youtube.com/embed/B-0wgmKDxho?si=QN79JaPR_YMoIBUr";
+  "https://www.youtube.com/embed/ycIau2jkNSA?si=dg9KRbw0TpvVTnMq";
 
 async function getConfig() {
   const url = "https://6555573184b36e3a431db63e.mockapi.io/config";
@@ -80,7 +80,7 @@ const start = async function () {
       controls: 0,
       mute: 1,
       listType: "playlist",
-      list: "PLhuOfWAQ8ocgRk7384XFcZSb56ZlCfUwa",
+      list: "PLZRsiQuiYIt7J3yxyCpxQDT8RMhptYDtJ",
     },
   });
 
@@ -96,10 +96,16 @@ const start = async function () {
     },
   });
 
+  musicPlayer.playVideo().then(function () {
+    console.log(
+      "Starting to play player1. It will take some time to buffer video before it starts playing."
+    );
+  });
+
   // musicPlayer.loadVideoByUrl(defaultIframe)
   // activeVideo = defaultIframe
   // musicPlayer.unMute();
-  player.unMute();
+  // player.unMute();
   // musicPlayer.setVolume(20);
   // rampVolume(musicPlayer, 20, "up");
 
@@ -161,43 +167,50 @@ const start = async function () {
     const wrapper = document.querySelector(".wrapper");
     let wrapperStyle = wrapper.getAttribute("style");
 
-    if (wrapperStyle == null || wrapperStyle.opacity == null || wrapperStyle.opacity == undefined) {
+    if (
+      wrapperStyle == null ||
+      wrapperStyle.opacity == null ||
+      wrapperStyle.opacity == undefined
+    ) {
       wrapper.setAttribute("style", "opacity: 1;");
     }
 
-    var fadeToWhite = (callback = () => { }) => {
+    var fadeToWhite = (callback = () => {}) => {
       var internalLoop = setInterval(() => {
         wrapper.style.opacity -= 0.01;
         if (wrapper.style.opacity <= 0) {
-          clearInterval(internalLoop)
-          callback()
+          clearInterval(internalLoop);
+          callback();
         }
       }, 50);
-    }
+    };
 
     var fadeFromWhite = () => {
       var internalLoop = setInterval(() => {
         wrapper.style.opacity = parseFloat(wrapper.style.opacity) + 0.01;
         if (wrapper.style.opacity >= 1) {
-          clearInterval(internalLoop)
+          clearInterval(internalLoop);
         }
       }, 50);
-    }
+    };
 
     var fadeToWhiteLoop = setInterval(async () => {
       fadeToWhite(() => {
         const background = document.querySelector(".countdown-background");
         background.classList.add("open");
-        setTimeout(() => { background.classList.remove('open'); fadeFromWhite() }, 10000)
-      })
+        setTimeout(() => {
+          background.classList.remove("open");
+          fadeFromWhite();
+        }, 10000);
+      });
     }, 1000000);
 
     var overrideIsSet = false;
 
-    var getConfigLoop = setInterval(async () => {config = await getConfig(); }, 60000);
+    var getConfigLoop = setInterval(async () => {
+      config = await getConfig();
+    }, 60000);
     var configLoop = setInterval(async () => {
-      
-
       const clock = document.querySelector(".clock");
       const hour = clock.querySelector(".hour");
       const minute = clock.querySelector(".minute");
@@ -216,23 +229,20 @@ const start = async function () {
         networkPass.innerHTML = config["wifi-information"]["network-password"];
       }
 
-      if (config['notice-override'] && config['notice-override']['enabled']) {
+      if (config["notice-override"] && config["notice-override"]["enabled"]) {
         switch (config["notice-override"]["type"]) {
           case "video":
-            if (
-              activeVideo !==
-              config["notice-override"]["src"]
-            ) {
-              const videoPlayer = document.getElementById('video-player')
+            if (activeVideo !== config["notice-override"]["src"]) {
+              const videoPlayer = document.getElementById("video-player");
 
               rampVolume(musicPlayer, 0, "down", () => {
-                videoPlayer.classList.add('open')
-                player.loadVideoByUrl(config["notice-override"]["src"])
-                rampVolume(player, 100, "up")
-              })
+                videoPlayer.classList.add("open");
+                player.loadVideoByUrl(config["notice-override"]["src"]);
+                rampVolume(player, 100, "up");
+              });
 
-              activeVideo = config["notice-override"]["src"]
-              overrideIsSet = true
+              activeVideo = config["notice-override"]["src"];
+              overrideIsSet = true;
             }
             break;
 
@@ -247,10 +257,10 @@ const start = async function () {
           switch (config["notice-override"]["type"]) {
             case "video":
               rampVolume(player, 0, "down", () => {
-                const videoPlayer = document.getElementById('video-player')
-                videoPlayer.classList.remove('open')
-                rampVolume(musicPlayer, 20, "up")
-              })
+                const videoPlayer = document.getElementById("video-player");
+                videoPlayer.classList.remove("open");
+                rampVolume(musicPlayer, 20, "up");
+              });
               break;
             case "text":
               let text = document.getElementById("text-announcement");
@@ -333,8 +343,11 @@ const start = async function () {
             background.classList.add("open");
             scroller.scrollLeft -= scroller.scrollWidth / 2;
             scroller.innerHTML += scroller.children;
-            setTimeout(() => { background.classList.remove('open'); fadeFromWhite() }, 10000)
-          })
+            setTimeout(() => {
+              background.classList.remove("open");
+              fadeFromWhite();
+            }, 10000);
+          });
         }
       });
     }, 11);

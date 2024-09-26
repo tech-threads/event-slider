@@ -1,0 +1,23 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+
+  padding: 50px;
+
+  background-color: whitesmoke;
+}
+
+.App {
+  overflow: hidden;
+  width: var(--app-width);
+  height: var(--app-height);
+  position: relative;
+
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-theme);
+}

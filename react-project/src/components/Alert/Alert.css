@@ -1,0 +1,29 @@
+.alert {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: calc(var(--border-radius) * 0.9);
+  margin: 10px 0;
+  color: #fff;
+  font-family: "Arial", sans-serif;
+}
+
+.alert-warning {
+  background-color: #f39c12;
+}
+
+.alert-info {
+  background-color: #3498db;
+}
+
+.alert-error {
+  background-color: #e74c3c;
+}
+
+.alert-success {
+  background-color: #2ecc71;
+}
+
+.icon {
+  margin-right: 10px;
+}

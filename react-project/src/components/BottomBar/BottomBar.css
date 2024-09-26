@@ -1,0 +1,31 @@
+.bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: var(--app-width);
+  height: 100px;
+
+  background-color: black;
+
+  color: white;
+  font-weight: 600;
+
+  gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 25px;
+}
+
+.bottom-bar > div {
+  width: 33.33%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.bottom-bar > div:nth-of-type(2) {
+  justify-content: flex-start;
+  width: 66.66%;
+}
