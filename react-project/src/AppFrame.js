@@ -13,6 +13,10 @@ socket.on("connect", () => {
   console.log("Connected to the socket API.");
 });
 
+socket.on("video:start", () => {
+  alert("video Starting");
+});
+
 function AppFrame() {
   return (
     <>
