@@ -1,6 +1,6 @@
 const images = [
   {
-    url: "https://th.bing.com/th/id/R.fbc13f1d0386dd14b4a3999e33e2448c?rik=cpWN9s8Qqi2TDA&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fsilhouette-of-city-skyline%2fsilhouette-of-city-skyline-3.png&ehk=em1Ikh%2bLydxPYyJDyEsKshZse0D%2fz7EYtlQPiUyuWQo%3d&risl=&pid=ImgRaw&r=0",
+    url: "/images/logos/skyline.png",
     width: 1920,
     height: 1000,
   },

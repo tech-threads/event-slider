@@ -1,14 +1,14 @@
 import overlayImages from "../Helpers/overlayImages";
 const images = [
   {
-    url: "https://pkkm22-3000.csb.app/images/logos/codecamp.png",
-    width: 500,
-    height: 500,
+    url: "/images/logos/CodeCampPIxel.png",
+    width: 133,
+    height: 67,
   },
   {
-    url: "https://pkkm22-3000.csb.app/images/logos/vasion-300x300-1-200x200.webp",
-    width: 500,
-    height: 500,
+    url: "/images/logos/pxArt (3).png",
+    width: 240,
+    height: 240,
   },
 ];
 
@@ -19,9 +19,9 @@ function SponsorSprite(getRandomNumber, canvas, coords) {
   const sponsorSprite = {
     x: coords.x,
     y: coords.y,
-    width: 500,
-    height: 600,
-    speed: 1,
+    width: 240,
+    height: 240,
+    speed: 0.5,
     getNextImage: null,
   };
 
@@ -34,10 +34,16 @@ function SponsorSprite(getRandomNumber, canvas, coords) {
 
       const image = images[index];
       const melded = await overlayImages(
-        "https://pkkm22-3000.csb.app/images/logos/billboard.png",
+        "/images/logos/pxArt-1.png",
         image.url,
-        800,
-        800
+        {
+          width: 240,
+          height: 240,
+        },
+        {
+          width: image.width,
+          height: image.height,
+        }
       );
 
       index++;

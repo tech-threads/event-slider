@@ -1,6 +1,6 @@
 const images = [
   {
-    url: "https://www.svgrepo.com/show/196951/billboard.svg",
+    url: "/images/logos/pxArt.png",
     width: 500,
     height: 500,
   },
@@ -13,8 +13,8 @@ function BillboardSprite(getRandomNumber, canvas, coords) {
     x: coords.x,
     y: coords.y,
     width: 500,
-    height: 500,
-    speed: 1,
+    height: 600,
+    speed: 0.5,
     getNextImage: () => {
       if (index === images.length) index = 0;
 

@@ -1,7 +1,18 @@
 import Alert from "../Alert/Alert";
 import "./BottomBar.css";
 
+import websocket from "../../helpers/websocket";
+import { useEffect } from "react";
+
 function BottomBar() {
+  useEffect(() => {
+    websocket.connect("ws://stl9p4-8080.csb.app/").then((socket) => {
+      socket.on("video:start", (data) => {
+        console.log("Video Starting with data: ", data);
+      });
+    });
+  });
+
   return (
     <div className="bottom-bar">
       <div>

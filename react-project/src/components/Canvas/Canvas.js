@@ -2,13 +2,18 @@ import React, { useEffect, useRef } from "react";
 import "./Canvas.css";
 import SponsorSprite from "./Sprites/SponsorSprite";
 import CitySprite from "./Sprites/CitySprite";
+import GrassSprite1 from "./Sprites/Set/GrassBlock1";
+import DirtBlock1Sprite from "./Sprites/Set/Dirtblock1";
+import SkyBlock1 from "./Sprites/Set/Skyblock1";
+
+console.log = () => null;
 
 function Canvas() {
   const canvasRef = useRef(null);
   const hasSetupBeenCalled = useRef(false);
   const layers = useRef({
-    stars: [],
     background: [],
+    stars: [],
     sprites: [],
     foreground: [],
   });
@@ -43,7 +48,6 @@ function Canvas() {
         "#FFD700", // Gold
         "#FF4500", // Orange Red
         "#FF8C00", // Dark Orange
-        "#B22222", // Firebrick
       ];
 
       return colors[Math.floor(Math.random() * colors.length)];
@@ -65,11 +69,12 @@ function Canvas() {
           config.width = nextImage.width;
           img.src = nextImage.url;
           element.image = img; // Store the loaded image in the element
-          element.config = config;
         } catch (e) {
           console.log("Something went wrong creating sprite", e);
         }
       }
+
+      element.config = config;
 
       // Ensure the layer exists
       if (!layers.current[layer]) {
@@ -100,18 +105,28 @@ function Canvas() {
               element.height
             );
 
+            console.log(element);
+
             // Move rectangle
             element.x -= element.speed;
             if (
               element.x + element.width < 0 &&
               element.config &&
-              element.config.noRegen === false
+              !element.config.noRegen
             ) {
               element.x = context.canvas.width;
             }
 
             if (element.config && element.config.perTickTranslation) {
-              element.y += element.config.perTickTranslation.y * 10;
+              const { modifier, xFunc, yFunc } =
+                element.config.perTickTranslation;
+              const yUnitChange = yFunc() * modifier;
+              element.y += yUnitChange * 10;
+
+              if (xFunc) {
+                const xUnitChange = yFunc() * modifier;
+                element.x += xUnitChange * 10;
+              }
             }
           } else if (element.type === "sprite") {
             if (element.image.complete) {
@@ -140,39 +155,6 @@ function Canvas() {
       requestAnimationFrame(() => animate(context));
     };
 
-    async function createCityScapeSprites(
-      createElement,
-      getRandomNumber,
-      canvas
-    ) {
-      await createElement(
-        "sprite",
-        CitySprite(getRandomNumber, canvas, {
-          x: 0,
-          y: canvas.height - 1000,
-        }),
-        "background"
-      );
-
-      await createElement(
-        "sprite",
-        CitySprite(getRandomNumber, canvas, {
-          x: 800,
-          y: canvas.height - 1000,
-        }),
-        "background"
-      );
-
-      await createElement(
-        "sprite",
-        CitySprite(getRandomNumber, canvas, {
-          x: 1920,
-          y: canvas.height - 1000,
-        }),
-        "background"
-      );
-    }
-
     const setup = async () => {
       hasSetupBeenCalled.current = true;
       console.log("setting up canvas render");
@@ -182,7 +164,7 @@ function Canvas() {
       canvas.height = 1080;
 
       // Create example elements only once
-      if (layers.current.background.length === 0) {
+      if (layers.current.background.length === 0 || true) {
         StartShootingStars(
           getRandomNumber,
           createElement,
@@ -191,26 +173,97 @@ function Canvas() {
           getRandomColor
         ); // Start the first star creation
 
-        await createCityScapeSprites(createElement, getRandomNumber, canvas);
+        let width = 0;
+        const maxWidth = 1920 + 48;
+        let height = 0;
+        const maxHeight = 1080 + 48;
 
-        if (layers.current.foreground.length === 0) {
-          let height = canvas.height - (500 - 100);
+        const dirtHeight = canvas.height - 100 - 48;
+        const grassHeight = dirtHeight - 48;
+        const skyHeight = grassHeight - 48;
 
-          let coords = {
-            x: getRandomNumber(0, canvas.width),
-            y: height, // sprite height - footer height
-          };
-
+        while (width < maxWidth) {
           await createElement(
             "sprite",
-            SponsorSprite(getRandomNumber, canvas, coords),
+            DirtBlock1Sprite({
+              x: width,
+              y: dirtHeight,
+              width: 48,
+              height: 48,
+            }),
             "foreground"
           );
+          await createElement(
+            "sprite",
+            GrassSprite1({
+              x: width,
+              y: grassHeight,
+              width: 48,
+              height: 48,
+            }),
+            "foreground"
+          );
+
+          height = 0;
+
+          while (height < maxHeight) {
+            await createElement(
+              "sprite",
+              SkyBlock1({
+                x: width,
+                y: height,
+                width: 48,
+                height: 48,
+              }),
+              "background"
+            );
+
+            height += 48;
+          }
+
+          width += 48;
         }
+
+        for (let i = 0; i < 100; i++) {
+          const starDimension = getRandomNumber(0.5, 3);
+
+          createElement(
+            "rectangle",
+            {
+              x: getRandomStartingXLocation(canvas.width, 5),
+              y: getRandomNumber(0, canvas.height),
+              width: starDimension,
+              height: starDimension,
+              speed: 0.1, //getRandomNumber(0.01, 0.02),
+              color: getRandomColor(),
+              noRegen: false,
+            },
+            "stars"
+          );
+        }
+
+        // await createCityScapeSprites(createElement, getRandomNumber, canvas);
+
+        createSponsorBillboard(canvas);
       }
 
       animate(context);
     };
+
+    async function createSponsorBillboard(canvas) {
+      let height = canvas.height - 96 - 328;
+
+      let coords = {
+        x: 0,
+        y: height, // sprite height - footer height
+      };
+
+      await createElement(
+        "sprite",
+        SponsorSprite(getRandomNumber, canvas, coords),
+        "foreground"
+      );
+    }
 
     function StartShootingStars(
       getRandomNumber,
@@ -224,7 +277,7 @@ function Canvas() {
       const createStar = async () => {
         // Wait for a random delay
         await new Promise((resolve) =>
-          setTimeout(resolve, getRandomNumber(100, 1000) * 1)
+          setTimeout(resolve, getRandomNumber(100, 1000 * 6) * 1)
         );
 
         // Create a shooting star
@@ -251,6 +304,8 @@ function Canvas() {
       getRandomNumber,
       getRandomColor
     ) {
+      const starDir = Math.random() < 0.5 ? -1 : 1;
+      const perYTranslate = getRandomNumber(0.01, 0.5);
       createElement(
         "rectangle",
         {
@@ -262,8 +317,10 @@ function Canvas() {
           color: getRandomColor(),
           noRegen: true,
           perTickTranslation: {
-            x: 0,
-            y: -10,
+            x: -1,
+            y: -0.1,
+            modifier: starDir,
+            yFunc: () => perYTranslate,
           },
         },
         "stars",
