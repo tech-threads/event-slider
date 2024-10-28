@@ -9,7 +9,15 @@ body {
 
   padding: 50px;
 
-  background-color: whitesmoke;
+  background-color: rgb(10, 10, 10);
+}
+
+[font-color="white"] {
+  color: white!important;
+}
+
+[font-color="black"] {
+  color: black!important;
 }
 
 .App {
@@ -20,4 +28,70 @@ body {
 
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow-theme);
+  transition: all 1.5s;
+  border: var(--border-width) solid var(--border-color);
+  z-index: 10;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 1s ease-in-out;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.hidden-clock-and-timer {
+  width: 100%;
+
+  z-index: 0;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transition: all 1.5s;
+}
+
+.hidden-clock-and-timer.hidden {
+  display: none !important;
+}
+
+
+.App.white {
+  background-color: white!important;
+  color: black;
+
+  box-shadow: none;
+  opacity: 0;
+  animation: fadeOut 1s ease-in-out;
+}
+
+
+body {
+  transition: all 1.5s;
 }

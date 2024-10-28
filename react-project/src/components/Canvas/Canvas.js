@@ -5,14 +5,22 @@ import CitySprite from "./Sprites/CitySprite";
 import GrassSprite1 from "./Sprites/Set/GrassBlock1";
 import DirtBlock1Sprite from "./Sprites/Set/Dirtblock1";
 import SkyBlock1 from "./Sprites/Set/Skyblock1";
+import TreeSprite from "./Sprites/TreeSprite";
+import CloudSprite from "./Sprites/CloudSprite";
 
-console.log = () => null;
+// console.log = () => null;
 
 function Canvas() {
   const canvasRef = useRef(null);
   const hasSetupBeenCalled = useRef(false);
   const layers = useRef({
     background: [],
+    mountains: [],
+    clouds: [],
+    trees: [],
+    'trees-2': [],
+    'trees-3': [],
+    'trees-4': [],
     stars: [],
     sprites: [],
     foreground: [],
@@ -27,7 +35,6 @@ function Canvas() {
     const updateSpriteImage = async (sprite) => {
       const img = new Image();
       const nextImage = await sprite.config.getNextImage();
-      console.log(nextImage);
       img.src = nextImage.url;
 
       img.onload = () => {
@@ -86,7 +93,6 @@ function Canvas() {
       }
 
       layers.current[layer].push(element);
-      console.log("Created element:", element); // Log element creation
 
       return element;
     };
@@ -104,8 +110,6 @@ function Canvas() {
               element.width,
               element.height
             );
-
-            console.log(element);
 
             // Move rectangle
             element.x -= element.speed;
@@ -157,7 +161,6 @@ function Canvas() {
 
     const setup = async () => {
       hasSetupBeenCalled.current = true;
-      console.log("setting up canvas render");
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
       canvas.width = 1920;
@@ -242,6 +245,19 @@ function Canvas() {
           );
         }
 
+        for (let i = 0; i < 5; i++) {
+          createElement(
+            "sprite",
+            CloudSprite(getRandomNumber, canvas, {
+              x: getRandomStartingXLocation(canvas.width, 5),
+              y: getRandomNumber(96, canvas.height - 300),
+            }),
+            "clouds"
+          );
+        }
+
+        createForest(canvas);
+
         // await createCityScapeSprites(createElement, getRandomNumber, canvas);
 
         createSponsorBillboard(canvas);
@@ -250,8 +266,44 @@ function Canvas() {
       animate(context);
     };
 
+    async function createForest(canvas) {
+      let height = canvas.height - 18 - 328;
+
+      for (let i = 0; i < 20; i++) {
+        createElement(
+          "sprite",
+          TreeSprite(getRandomNumber, canvas, { x: getRandomNumber(0, canvas.width), y: height }),
+          "trees"
+        )
+      }
+
+      for (let i = 0; i < 20; i++) {
+        createElement(
+          "sprite",
+          TreeSprite(getRandomNumber, canvas, { x: getRandomNumber(0, canvas.width), y: height + 10 }),
+          "trees-2"
+        )
+      }
+
+      for (let i = 0; i < 20; i++) {
+        createElement(
+          "sprite",
+          TreeSprite(getRandomNumber, canvas, { x: getRandomNumber(0, canvas.width), y: height + 15 }),
+          "trees-3"
+        )
+      }
+
+      for (let i = 0; i < 20; i++) {
+        createElement(
+          "sprite",
+          TreeSprite(getRandomNumber, canvas, { x: getRandomNumber(0, canvas.width), y: height + 20 }),
+          "trees-4"
+        )
+      }
+    }
+
     async function createSponsorBillboard(canvas) {
-      let height = canvas.height - 96 - 328;
+      let height = canvas.height - (96*3) - 300;
 
       let coords = {
         x: 0,

@@ -1,5 +1,6 @@
 .alert {
   display: flex;
+  width: 100%;
   align-items: center;
   padding: 15px;
   border-radius: calc(var(--border-radius) * 0.9);

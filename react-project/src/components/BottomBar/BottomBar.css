@@ -29,3 +29,61 @@
   justify-content: flex-start;
   width: 66.66%;
 }
+
+
+
+
+.video-player {
+  width: 100vw;
+  height: 100vh;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-player > div {
+  width: 1080px;
+  height: 720px;
+}
+
+.video-player > div > iframe {
+  width: 1080px;
+  height: 720px;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow-theme);
+}
+
+.audio-player {
+  display: none!important;
+  width: 100vw;
+  height: 100vh;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.audio-player > div {
+  width: 1080px;
+  height: 720px;
+}
+
+.audio-player > div > iframe {
+  width: 1080px;
+  height: 720px;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow-theme);
+}

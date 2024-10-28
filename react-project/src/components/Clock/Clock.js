@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Clock.css";
 import moment from "moment";
 
-function Clock() {
+function Clock({ fontColor }) {
   const [time, setTime] = useState(moment());
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function Clock() {
   return (
     <div>
       <div className="countdown-container">
-        <div className="countdown">
+        <div className="countdown" font-color={fontColor}>
           <span>{time.format("hh:mm A").toLowerCase()}</span>
         </div>
       </div>

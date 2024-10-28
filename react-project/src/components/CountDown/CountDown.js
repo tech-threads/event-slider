@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./CountDown.css";
 import moment from "moment";
 
-function CountDown({ targetDate }) {
+function CountDown({ targetDate, fontColor }) {
   const [timeLeft, setTimeLeft] = useState({
     hours: 0,
     minutes: 0,
@@ -37,7 +37,7 @@ function CountDown({ targetDate }) {
   return (
     <div>
       <div className="countdown-container">
-        <div className="countdown">
+        <div className="countdown" font-color={fontColor}>
           {timeLeft.hours > 0 && <span>{timeLeft.hours}h </span>}
           {timeLeft.minutes > 0 && <span>{timeLeft.minutes}m </span>}
           <span>{timeLeft.seconds}s</span>

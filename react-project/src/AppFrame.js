@@ -5,16 +5,16 @@ import Canvas from "./components/Canvas/Canvas";
 
 import client from "socket.io-client";
 
-const websocket = "ws://stl9p4-8080.csb.app";
+const websocket = "ws://localhost:8080";
 
 const socket = client(websocket);
 
 socket.on("connect", () => {
   console.log("Connected to the socket API.");
-});
 
-socket.on("video:start", () => {
-  alert("video Starting");
+  socket.on("video:start", () => {
+    alert("video Starting");
+  });
 });
 
 function AppFrame() {
